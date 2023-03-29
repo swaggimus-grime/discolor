@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager2 : MonoBehaviour
 {
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private GameObject playerController;
