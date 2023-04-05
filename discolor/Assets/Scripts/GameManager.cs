@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Tilemap danceFloor;
     [SerializeField] Player player;
+    [SerializeField] private MenuAnim menuText;
 
     private Vector3 ogPos;
     private bool gameStart;
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         comboCounter = 0;
         timeLimit = 1;
         gameStart = false;
+        player.Reset();
     }
 
     // Update is called once per frame
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
     {
         RandomizeTileColors();
         gameStart = true;
+        menuText.Disappear();
         timeLimit = 1;
         comboCounter++;
         score += scoreBase * comboCounter;
