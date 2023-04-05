@@ -5,11 +5,16 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
+    enum MOVE_DIR { IDLE, LEFT, UP, RIGHT, DOWN }
+
     public float speed = 0.25f;
     private PlayerControls ctrls;
 
     [SerializeField]
     private Tilemap danceFloor;
+
+    [SerializeField]
+    private Animator anim;
 
     private bool canMove = true;
 
@@ -39,7 +44,21 @@ public class Player : MonoBehaviour
             return;
 
         transform.position += (Vector3)dir;
+        if (dir.x > 0)
+            anim.SetInteger("state", (int)MOVE_DIR.RIGHT);
+        else if(dir.x < 0)
+            anim.SetInteger("state", (int)MOVE_DIR.LEFT);
+        else if(dir.y > 0)
+            anim.SetInteger("state", (int)MOVE_DIR.UP);
+        else if(dir.y < 0)
+            anim.SetInteger("state", (int)MOVE_DIR.DOWN);
+
         GameManager.Instance.OnPlayerMove();
+    }
+
+    public void Reset()
+    {
+        anim.SetInteger("state", (int)MOVE_DIR.IDLE);
     }
 
     private bool CanMove(Vector2 dir)
