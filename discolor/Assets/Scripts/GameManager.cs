@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        danceFloor.enabled = true;
         Init();
         Vector3Int cellPosition = danceFloor.WorldToCell(player.transform.position);
         player.transform.position = danceFloor.GetCellCenterWorld(cellPosition);
@@ -87,10 +88,50 @@ public class GameManager : MonoBehaviour
                 {
                     Vector3Int pos = new Vector3Int(x, y, z);
                     danceFloor.SetTileFlags(pos, TileFlags.None);
-                    danceFloor.SetColor(pos, colors[Random.Range(0, colors.Count)]);
+                    danceFloor.SetColor(pos, colors[Mathf.RoundToInt(Random.Range(0, colors.Count))]);
                 }
             }
 
+        }
+
+        Vector3Int playerPos = danceFloor.WorldToCell(player.transform.position);
+        Color playerColor = danceFloor.GetColor(playerPos);
+
+        int numComplements = Mathf.RoundToInt(Random.Range(0, 2));
+        HashSet<Player.MOVE_DIR> randDirs = new HashSet<Player.MOVE_DIR>();
+        for(int i = 0; i <= numComplements; i++)
+        {
+            Player.MOVE_DIR dir;
+            do
+            {
+                dir = (Player.MOVE_DIR)Mathf.RoundToInt(Random.Range(1, 4));
+            }
+            while (randDirs.Contains(dir));
+            randDirs.Add(dir);
+        }
+
+        foreach(Player.MOVE_DIR dir in randDirs)
+        {
+            Vector2 offset = new Vector2(0, 0);
+            switch (dir) {
+                case Player.MOVE_DIR.LEFT:
+                    offset = new Vector2(-1, 0);
+                    break;
+                case Player.MOVE_DIR.RIGHT:
+                    offset = new Vector2(1, 0);
+                    break;
+                case Player.MOVE_DIR.UP:
+                    offset = new Vector2(0, 1);
+                    break;
+                case Player.MOVE_DIR.DOWN:
+                    offset = new Vector2(0, -1);
+                    break;
+            }
+
+            Vector3Int tilePos = danceFloor.WorldToCell(player.transform.position + (Vector3)offset);
+            Color newCol = Color.white - playerColor;
+            newCol.a = 1;
+            danceFloor.SetColor(tilePos, newCol);
         }
     }
 
