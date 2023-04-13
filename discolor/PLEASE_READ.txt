@@ -1,0 +1,1 @@
+Inside the beta.zip file, open the build folder. Run discolor.exe to play the game. Thank you for your time and consideration.
