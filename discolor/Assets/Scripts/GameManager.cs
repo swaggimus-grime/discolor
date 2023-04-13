@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tilemap danceFloor;
     [SerializeField] Player player;
     [SerializeField] private MenuAnim menuText;
+    [SerializeField] SpriteRenderer background;
 
     private Vector3 ogPos;
     private bool gameStart;
@@ -102,5 +103,11 @@ public class GameManager : MonoBehaviour
         timeLimit = 1;
         comboCounter++;
         score += scoreBase * comboCounter;
+        Vector4 alphaVal =new Vector4(0, 0, 0, 1) * 0.6f;
+        Vector4 colorVal = (Vector4)danceFloor.GetColor(danceFloor.WorldToCell(player.transform.position + (Vector3)Vector2.zero));
+        colorVal.w = 0.1f;
+        background.color = colorVal;
+        
+
     }
 }
