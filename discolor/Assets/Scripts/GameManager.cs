@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         score += scoreBase * comboCounter;
         Vector4 alphaVal =new Vector4(0, 0, 0, 1) * 0.6f;
         Vector4 colorVal = (Vector4)danceFloor.GetColor(danceFloor.WorldToCell(player.transform.position + (Vector3)Vector2.zero));
-        colorVal.w = 0.1f;
+        colorVal.w = 0.2f;
         background.color = colorVal;
         
 
